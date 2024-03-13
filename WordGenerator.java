@@ -23,9 +23,9 @@ public class WordGenerator {
         }
     }
     
-    public void generateWord() {
+    public String generateWord() {
         int index = random.nextInt(words.size() + 1);
-        System.out.println("A palavra gerada foi: " + words.get(index));
+        return words.get(index);
     }
     
     public void addWord(String add) {
