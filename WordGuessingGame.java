@@ -9,13 +9,13 @@ public class WordGuessingGame {
     private String hiddenWord;
     private String guessedWord;
     private int numberOfTries;
-    
+    private InputReader reader;
     
     public WordGuessingGame() {
         hiddenWord = "abc";
         guessedWord = "___";
         numberOfTries = 0;
-        
+        reader = new InputReader();
     }
     
     public String getHiddenWord() {
@@ -30,15 +30,49 @@ public class WordGuessingGame {
         return numberOfTries;
     }
     
-    public void showGuessedWord() {
-        System.out.println(guessedWord);
+    private void showGuessedWord() {
+        System.out.println("A sua palavra atual é: " + guessedWord);
     }
     
-
+    public void play() {
+        showWelcome();
+        while (!guessedWord.equals(hiddenWord)) {
+            showGuessedWord();
+            guess();
+        }
+        showResult();
+    }
     
-
+    private void showWelcome() {
+        System.out.println("Bem Vindo ao jogo!");
+    }
     
-
+    private void guess() {
+        char[] guessArray = guessedWord.toCharArray();
+        char[] hiddenArray = hiddenWord.toCharArray();
+        String question = "Qual palavra deseja adivinhar?";
+        char guess = reader.getChar(question);
+        boolean found = false;
+        
+        for (int i = 0; i < hiddenArray.length ; i++) {
+            if (hiddenArray[i] == guess) {
+                guessArray[i] = guess;
+                found = true;
+            }
+        }
+        
+        if (found) {
+            guessedWord = new String(guessArray);
+        }
+        
+        numberOfTries++;
+    }
     
-    
+    private void showResult() {
+        if (guessedWord.equals(hiddenWord)) {
+            System.out.println("Número de tentativas: " + numberOfTries);
+        }
+    }
 }
+    
+    
